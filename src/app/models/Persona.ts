@@ -1,10 +1,8 @@
-export class Persona{
+export class Persona {
 
   id: number;
-  nombre: string;
-  apellido: string;
-  fechaNacimiento: Date;
-  edad: number;
-  mensaje: string;
-
+  name: string;
+  lastName: string;
+  motherLastName: string;
+  fechaNacimiento: string;
 }

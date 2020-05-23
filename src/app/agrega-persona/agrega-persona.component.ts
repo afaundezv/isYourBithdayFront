@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Persona } from "../models/Persona";
+import { PersonaResponse } from "../models/PersonaResponse"
 import { PersonaService } from "../services/persona.service";
 import { NgxSpinnerService } from "ngx-spinner";
+import { from } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-agrega-persona',
@@ -11,8 +14,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class AgregaPersonaComponent implements OnInit {
 
   persona: Persona = new Persona;
+  personaResponse: PersonaResponse;
   exito: boolean = false;
   siMensaje: boolean = false;
+  formatDate: string;
 
 
   constructor(private personaService: PersonaService, private spinnerService: NgxSpinnerService) { }
@@ -20,44 +25,53 @@ export class AgregaPersonaComponent implements OnInit {
   ngOnInit() {
   }
 
-  enviar(){
+  enviar() {
 
-      this.guardarPersona()
+    this.guardarPersona()
   }
 
 
-  limpia(){
+  limpia() {
     this.exito = false;
     this.siMensaje = false;
-    this.persona.nombre = null;
-    this.persona.apellido = null;
+    this.persona.name = null;
+    this.persona.lastName = null;
+    this.persona.motherLastName = null;
     this.persona.fechaNacimiento = null;
-    this.persona.edad = null;
-    this.persona.mensaje = null;
-
-
   }
 
-  guardarPersona(){
-
+  guardarPersona() {
 
     console.log(this.persona)
     this.spinnerService.show();
 
     this.personaService.personaAgrega(this.persona)
-        .subscribe(
-          (data:any) => {
-            this.exito = true;
-            this.persona = data;
-
-            if (this.persona.mensaje !== null){
-              this.siMensaje = true;
-            }
-
-            console.log(data)
-            this.spinnerService.hide();
+      .subscribe(
+        (data: any) => {
+          this.exito = true;
+          this.personaResponse = data;
+          this.formatDate = new Date(data.birthday)
+            .toLocaleDateString()
+            .split("/")
+            .map(function (value, index) {
+              if (index == 2) {
+                return value.substr(2)
+              }
+              else {
+                return value + "/"
+              }
+            })
+            .toString()
+            .replace(/(,)/g, "")
+          if (this.personaResponse.poem !== null) {
+            this.siMensaje = true;
           }
-        )
+
+
+          console.log(data)
+          this.spinnerService.hide();
+        }
+      )
 
   }
 

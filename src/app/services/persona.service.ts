@@ -9,14 +9,18 @@ import { Persona } from "../models/Persona";
 })
 export class PersonaService {
 
-  private endpoint = 'http://127.0.0.1:8080/api/persona' ;
+  private endpoint = 'http://localhost:8080/api/v0/birthday?';
 
   constructor(private http: HttpClient) { }
 
-  personaAgrega(persona: Persona): Observable<object>{
+  personaAgrega(persona: Persona): Observable<object> {
 
-    return this.http.post(this.endpoint, persona);
-
+    return this.http.get(
+      this.endpoint +
+      "name=" + persona.name +
+      "&lastName=" + persona.lastName +
+      "&motherLastName=" + persona.motherLastName +
+      "&birthday=" + persona.fechaNacimiento);
   }
 
 

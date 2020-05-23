@@ -1,61 +1,61 @@
 <div class="container">
-  <h1>Calcula tu edad</h1>
-  <div class="col-lg-8 ">
-    <h3 *ngIf="exito" class="text-success">Edad calculada con exito!</h3>
-    <h4><small></small></h4>
-     <div class="row well center">
-        <form (ngSubmit)="enviar()" #personaForm="ngForm">
-           <div class="col-sm-12">
-              <div class="row">
-                 <div class="col-sm-6 form-group">
-                    <label>Nombre</label>
-                    <input required ngModel  type="text" class="form-control" id="Nombre" #Nombre="ngModel" name="Nombre" [(ngModel)]="persona.nombre">
-                 </div>
+   <h1>Estás de cumpleaños?</h1>
+   <div class="col-lg-8 ">
+      <h3 *ngIf="exito" class="text-success">exito!</h3>
+      <h4><small></small></h4>
+      <div class="row well center">
+         <form (ngSubmit)="enviar()" #personaForm="ngForm">
+            <div class="col-sm-12">
+               <div class="row">
+                  <div class="col-sm-6 form-group">
+                     <label>Nombres</label>
+                     <input required ngModel type="text" class="form-control" id="name" #Nombre="ngModel" name="name"
+                        [(ngModel)]="persona.name">
+                  </div>
+                  <div class="col-sm-6 form-group">
+                     <label>Apellido paterno</label>
+                     <input type="text" class="form-control" name="lastName" [(ngModel)]="persona.lastName" required>
+                  </div>
+                  <div class="col-sm-6 form-group">
+                     <label>Apellido materno</label>
+                     <input type="text" class="form-control" name="motherLastName" [(ngModel)]="persona.motherLastName"
+                        required>
+                  </div>
+                  <div class="col-sm-6 form-group">
+                     <label>Fecha Nacimiento</label>
+                     <input type="text" class="form-control" name="fechaNacimiento"
+                        [(ngModel)]="persona.fechaNacimiento" placeHolder="dd-MM-yyyy" required>
+                  </div>
+               </div>
 
 
-                 <div class="col-sm-6 form-group">
-                    <label>Apellido</label>
-                    <input type="text" class="form-control" name="apellido" [(ngModel)]="persona.apellido" required >
-                 </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6 form-group">
-                   <label>Fecha Nacimiento</label>
-                   <input type="date"  class="form-control" name="fechaNacimiento" [(ngModel)]="persona.fechaNacimiento" required >
-                </div>
-             </div>
 
+               <div class="row">
+                  <div class="col-sm">
 
+                     <button type="submit" class="btn btn-lg btn-warning"
+                        [disabled]="!personaForm.valid">Enviar</button>
+                     <button type="button" class="btn btn-lg btn-info" (click)="limpia()">Limpiar</button>
 
-             <div class="row">
-                <div class="col-sm">
-
-                  <button type="submit" class="btn btn-lg btn-warning" [disabled]="!personaForm.valid" >Enviar</button>
-                  <button type="button" class="btn btn-lg btn-info" (click)="limpia()">Limpiar</button>
-
-                </div>
+                  </div>
+               </div>
             </div>
-
-
-
-
-           </div>
-        </form>
-
-        <div class="row">
-         <br>
-        </div>
-
-        <div class="row">
-         <h3 class="text-info">Tu edad es: {{persona.edad}}</h3>
-         <h2 *ngIf="siMensaje" class="text-warning">Hoy es tu cumpleaños!!!!, te dedico este poema:</h2>
-         <h3 *ngIf="siMensaje" class="text-success">{{persona.mensaje}}</h3>
-
+         </form>
+         <div class="row"></div>
+         <div class="row" *ngIf="exito">
+            <h3 class="text-info">Su nombre es: {{personaResponse.nameAndLastName}}</h3>
+            <h3 class="text-info">Su edad es: {{personaResponse.age}}</h3>
+            <h3 class="text-info">La fecha ingresada es: {{formatDate}}</h3>
+            <h2 *ngIf="siMensaje; else elseBlock" class="text-warning">feliz cumpleaños!!!!, te dedico este poema:</h2>
+            <h3 *ngIf="siMensaje" class="text-success">{{personaResponse.poem}}</h3>
+            <ng-template #elseBlock>
+               <h3 class="text-info">Faltan {{personaResponse.daysRemainingBirthday}} días para su cumpleaños</h3>
+            </ng-template>
          </div>
 
-        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
-         <p style="color: white">Cargando. </p>
+         <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+            <p style="color: white">Cargando. </p>
          </ngx-spinner>
-     </div>
-  </div>
+      </div>
+   </div>
 </div>
