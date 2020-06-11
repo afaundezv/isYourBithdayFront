@@ -118,5 +118,8 @@
       }
     }
   },
-  "defaultProject": "fecumpleanos"
+  "defaultProject": "fecumpleanos",
+  "cli": {
+    "analytics": "c78f1828-2f13-4e91-a0ef-fbad72c4e33b"
+  }
 }
